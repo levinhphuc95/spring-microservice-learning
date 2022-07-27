@@ -1,0 +1,29 @@
+services:
+  postgres:
+    container_name: postgres
+    image: postgres
+    environment:
+      POSTGRES_USER: phucle
+      POSTGRES_PASSWORD: password
+      PGDATA: /data/postgres
+    volumes:
+      - postgres:/data/postgres
+    ports:
+      - "5432:5432"
+    restart: unless-stopped
+
+  zipkin:
+    image: openzipkin/zipkin
+    container_name: zipkin
+    ports:
+      - "9411:9411"
+
+  rabbitmq:
+    image: rabbitmq:3.7.16-management
+    container_name: rabbitmq
+    ports:
+      - "5682:5672"
+      - "15682:15672"
+
+volumes:
+  postgres:
